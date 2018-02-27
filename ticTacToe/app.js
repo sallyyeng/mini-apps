@@ -45,25 +45,24 @@ class Game {
     return typeof this.board[row][col] === 'string';
   }
 
-  isValidSelection(selection) {
-    if (!(selection > 0 && selection <= 9)) {
-      console.log('Please select a value between 0 and 9');
-      return false;
-    } else if (this.isSelectedAlready(selection)) {
-      console.log('That option has already been selected');
-      return false;
-    } else {
+  isInvalidSelection(selection) {
+    if (selection < 0 || selection > 9) {
+      console.log('Please select a value between 0 and 9, try again');
       return true;
+    } else if (this.isSelectedAlready(selection)) {
+      console.log('That option has already been selected, try again');
+      return true;
+    } else {
+      return false;
     }
   }
 
   promptForSelection() {
-    let selection = prompt.question(`Player ${this.player}, what's your next move? `);
-    if (this.isValidSelection(selection)) {
-      this.placeSelection(selection);
-    } else {
-      this.promptForSelection();
-    }
+    let selection;
+    do {
+      selection = prompt.question(`Player ${this.player}, what's your next move? `);
+    } while (this.isInvalidSelection(selection));
+    return selection;
   }
 
   placeSelection(selection) {
@@ -80,12 +79,33 @@ class Game {
     }
   }
 
+  // After placing value, check if that particular placement activates a win //
+
+  hasColWin(col) {
+    return this.board[0][col] === this.board[1][col] === this.board[2][col] ? true : false;
+  }
+
+  // hasRowWin(row) {
+  //   return this.board[row][0] === this.board[row][1] === this.board[row][2] ? true : false;
+  // }
+
+  // hasDiagonalWin() {
+  //   return this.board[0][0] === this.board[1][1] === this.board[2][2] ? true :
+  //          this.board[2][0] === this.board[1][1] === this.board[2][0] ? true : false;
+  // }
+
+  checkForWinner(selection) {
+    const {row, col} = this.convertToRowCol(selection);
+    if (this.hasColWin(col)) { console.log('THANKS FOR PLAYING!'); process.exit(0); }
+  }
+
   printNewTurn() {
     this.printBoard();
-    this.promptForSelection();
+    let selection = this.promptForSelection();
+    this.placeSelection(selection);
+    this.checkForWinner(selection);
 
     this.checkForStalemate();
-    // this.checkForWinner();
 
     this.printNewTurn();
   }
