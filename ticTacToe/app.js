@@ -18,13 +18,13 @@ class Game {
 
   printBoard() {
     const printRowSeparator = () => {
-      console.log('-------------');
+      console.log('        -------------');
     };
 
     this.newLine();
     printRowSeparator();
     this.board.forEach(row => {
-      console.log(`| ${row[0]} | ${row[1]} | ${row[2]} |`);
+      console.log(`        | ${row[0]} | ${row[1]} | ${row[2]} |`);
       printRowSeparator();
     });
     this.newLine();
@@ -46,7 +46,7 @@ class Game {
   }
 
   isInvalidSelection(selection) {
-    if (selection < 0 || selection > 9) {
+    if (!selection.match(/^[1-9]$/)) {
       console.log('Please select a value between 0 and 9, try again');
       return true;
     } else if (this.isSelectedAlready(selection)) {
@@ -60,7 +60,7 @@ class Game {
   promptForSelection() {
     let selection;
     do {
-      selection = prompt.question(`Player ${this.player}, what's your next move? `);
+      selection = prompt.question(`Player ${this.player}, what's your move? `);
     } while (this.isInvalidSelection(selection));
     return selection;
   }
@@ -69,42 +69,56 @@ class Game {
     const {row, col} = this.convertToRowCol(selection);
     this.board[row][col] = this.player;
     this.turns++;
-    this.switchPlayers();
+  }
+
+  askToRestart() {
+    let restart = prompt.keyInYN('Do you want to play again?');
+    restart ? this.start() : console.log('THANKS FOR PLAYING!'); process.exit(0);
   }
 
   checkForStalemate() {
     if (this.turns === 9) {
-      let restart = prompt.keyInYN('STALEMATE! TRY AGAIN?');
-      restart ? this.start() : console.log('THANKS FOR PLAYING!'); process.exit(0);
+      console.log('GAME RESULT: DRAW BETWEEN PLAYERS');
+      this.askToRestart();
     }
   }
 
   // After placing value, check if that particular placement activates a win //
 
   hasColWin(col) {
-    return this.board[0][col] === this.board[1][col] === this.board[2][col] ? true : false;
+    return this.board[0][col] === this.board[1][col] && this.board[1][col] === this.board[2][col] ? true : false;
   }
 
-  // hasRowWin(row) {
-  //   return this.board[row][0] === this.board[row][1] === this.board[row][2] ? true : false;
-  // }
+  hasRowWin(row) {
+    return this.board[row][0] === this.board[row][1] && this.board[row][1] === this.board[row][2] ? true : false;
+  }
 
-  // hasDiagonalWin() {
-  //   return this.board[0][0] === this.board[1][1] === this.board[2][2] ? true :
-  //          this.board[2][0] === this.board[1][1] === this.board[2][0] ? true : false;
-  // }
+  hasDiagonalWin() {
+    return this.board[0][0] === this.board[1][1] && this.board[1][1] === this.board[2][2] ? true :
+           this.board[2][0] === this.board[1][1] && this.board[1][1] === this.board[2][0] ? true : false;
+  }
+
+  printWinner() {
+    this.newLine();
+    console.log(`/==== WINNER IS: PLAYER ${this.player} ====/`);
+    this.printBoard();
+    console.log('/=============================/');
+    this.newLine();
+    this.askToRestart();
+  }
 
   checkForWinner(selection) {
     const {row, col} = this.convertToRowCol(selection);
-    if (this.hasColWin(col)) { console.log('THANKS FOR PLAYING!'); process.exit(0); }
+    this.hasColWin(col) || this.hasRowWin(row) || this.hasDiagonalWin() ? this.printWinner() : null;
   }
+
 
   printNewTurn() {
     this.printBoard();
     let selection = this.promptForSelection();
     this.placeSelection(selection);
     this.checkForWinner(selection);
-
+    this.switchPlayers();
     this.checkForStalemate();
 
     this.printNewTurn();
