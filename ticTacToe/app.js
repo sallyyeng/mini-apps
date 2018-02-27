@@ -34,36 +34,70 @@ class Game {
     this.player = this.player === 'X' ? 'O' : 'X';
   }
 
-  placeSelection(selection) {
-    let row = Math.floor((parseInt(selection) - 1) / 3);
-    let col = Math.floor((parseInt(selection) - 1) % 3);
-    this.board[row][col] = this.player;
-    this.turns++;
+  convertToRowCol(selection) {
+    const row = Math.floor((selection - 1) / 3);
+    const col = (selection - 1) % 3;
+    return {row, col};
   }
 
-  promptPlayerTurn() {
+  isSelectedAlready(selection) {
+    const {row, col} = this.convertToRowCol(selection);
+    return typeof this.board[row][col] === 'string';
+  }
+
+  isValidSelection(selection) {
+    if (!(selection > 0 && selection <= 9)) {
+      console.log('Please select a value between 0 and 9');
+      return false;
+    } else if (this.isSelectedAlready(selection)) {
+      console.log('That option has already been selected');
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  promptForSelection() {
     let selection = prompt.question(`Player ${this.player}, what's your next move? `);
-    this.placeSelection(selection);
+    if (this.isValidSelection(selection)) {
+      this.placeSelection(selection);
+    } else {
+      this.promptForSelection();
+    }
+  }
+
+  placeSelection(selection) {
+    const {row, col} = this.convertToRowCol(selection);
+    this.board[row][col] = this.player;
+    this.turns++;
     this.switchPlayers();
   }
 
-  isStalemate() {
-    return this.turns === 9 ? true : false;
+  checkForStalemate() {
+    if (this.turns === 9) {
+      let restart = prompt.keyInYN('STALEMATE! TRY AGAIN?');
+      restart ? this.start() : console.log('THANKS FOR PLAYING!'); process.exit(0);
+    }
   }
 
   printNewTurn() {
     this.printBoard();
-    this.promptPlayerTurn();
+    this.promptForSelection();
 
-    if (!this.isStalemate()) {
-      this.printNewTurn();
-    } else {
-      let restart = prompt.keyInYN('STALEMATE! TRY AGAIN?');
-      restart ? this.start() : console.log('THANKS FOR PLAYING!');
-    }
+    this.checkForStalemate();
+    // this.checkForWinner();
+
+    this.printNewTurn();
+  }
+
+  resetBoard() {
+    this.board = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
+    this.player = 'X';
+    this.turns = 0;
   }
 
   start() {
+    this.resetBoard();
     this.printWelcomeMessage();
     this.printNewTurn();
   }
