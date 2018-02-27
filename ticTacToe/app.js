@@ -31,11 +31,7 @@ class Game {
   }
 
   switchPlayers() {
-    if (this.player === 'X') {
-      this.player = 'O';
-    } else {
-      this.player = 'X';
-    }
+    this.player = this.player === 'X' ? 'O' : 'X';
   }
 
   placeSelection(selection) {
@@ -58,10 +54,12 @@ class Game {
   printNewTurn() {
     this.printBoard();
     this.promptPlayerTurn();
+
     if (!this.isStalemate()) {
       this.printNewTurn();
     } else {
-      console.log('STALEMATE!');
+      let restart = prompt.keyInYN('STALEMATE! TRY AGAIN?');
+      restart ? this.start() : console.log('THANKS FOR PLAYING!');
     }
   }
 
