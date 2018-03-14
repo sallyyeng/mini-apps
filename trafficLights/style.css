@@ -1,0 +1,56 @@
+.container {
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2.5px solid black;
+  text-align: center;
+  height: 150px;
+  width: 150px;
+  background-color: rgb(162, 162, 162);
+  /* padding:10px; */
+}
+
+.gui {
+  align-content: center;
+  flex-wrap: wrap;
+  border: black;
+  background-color: white;
+}
+
+  button {
+    margin: 2%;
+    width: 51%;
+    height: 25%;
+  }
+
+.box1 {
+  border-bottom: 2.5px;
+}
+
+.box2 {
+  border-bottom: 2.5px;
+}
+
+  .light {
+    border-radius: 50%;
+    height: 60%;
+    width: 60%;
+    opacity: .35;
+  }
+
+    .red {
+      background: red;
+    }
+    .yellow {
+      background: yellow;
+    }
+    .green {
+      background: rgb(55, 254, 55);
+    }

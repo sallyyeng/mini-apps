@@ -4,7 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start-tictactoe": "node ticTacToe/app.js"
+    "start-tictactoe": "node ticTacToe/app.js",
+    "start-trafficLights": "open trafficLights/index.html"
   },
   "author": "",
   "license": "ISC",
