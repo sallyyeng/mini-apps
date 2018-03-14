@@ -3,11 +3,19 @@ Small apps from scratch
 
 ## tic-tac-toe
 
-### To play:
-
 `npm install`
 
-`npm start`
+`npm start-tictactoe`
 
 ### Requirements:
 `ES6`
+
+## traffic lights
+
+`npm install`
+
+`npm start-trafficLights`
+
+### Requirements:
+`gulp`
+`gulp-autoprefixer`
