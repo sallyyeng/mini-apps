@@ -1,37 +1,31 @@
-const options = ['red', 'green', 'yellow'];
+const options = ['green', 'yellow', 'red'];
 const startButton = document.querySelector('.start');
 const stopButton = document.querySelector('.stop');
 
-const red = document.querySelector('.red');
-const yellow = document.querySelector('.yellow');
-const green = document.querySelector('.green');
-
-let colorCounter = 1;
+let currLightIndex = 0;
+let prevLightIndex;
 let colorInterval;
 
 const resetLights = () => {
-  red.style.opacity = 0.35;
-  yellow.style.opacity = 0.35;
-  green.style.opacity = 0.35;
+  let prevLight = document.querySelector(`.${options[prevLightIndex]}`);
+  prevLight.style.opacity = 0.35;
 };
 
 const switchLights = () => {
-  resetLights();
+  // if a light is on, turn it off
+  prevLightIndex || prevLightIndex === 0 ? resetLights() : null;
 
-  if (colorCounter === 1) {
-    red.style.opacity = 1;
-    colorCounter = 2;
-  } else if (colorCounter === 2) {
-    green.style.opacity = 1;
-    colorCounter = 3;
-  } else if (colorCounter === 3) {
-    yellow.style.opacity = 1;
-    colorCounter = 1;
-  }
+  // turn on next light
+  let currLight = document.querySelector(`.${options[currLightIndex]}`);
+  currLight.style.opacity = 1;
+
+  // set current light to previous light, increment current light
+  prevLightIndex = currLightIndex;
+  currLightIndex = currLightIndex === 2 ? 0 : currLightIndex += 1;
 };
 
 const startLights = function() {
-  colorInterval = setInterval(switchLights, 2000);
+  colorInterval = setInterval(switchLights, 1000);
 };
 
 const stopLights = function() {
