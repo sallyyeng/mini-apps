@@ -2,8 +2,16 @@
 .main {
   height: 100vh;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
+}
+
+header {
+  font-family:'Lato';
+  font-size: 50px;
+  font-weight: 900;
+  margin: 200px;
 }
 
 .sentence {
