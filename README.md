@@ -16,6 +16,12 @@ Small apps from scratch
 
 `npm start-trafficLights`
 
+## fibonacci-generator
+
+`npm install`
+
+`npm start-fibGenerator`
+
 ### Requirements:
 `gulp`
 `gulp-autoprefixer`
