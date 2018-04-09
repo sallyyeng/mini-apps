@@ -8,7 +8,7 @@ gulp.task('styleTrafficLights', function() {
 });
 
 gulp.task('watchTrafficLights', function() {
-  gulp.watch('style', ['./trafficLights/style.css']);
+  gulp.watch('./trafficLights/style.css', ['styleTrafficLights']);
 });
 
 gulp.task('styleFibGen', function() {
@@ -18,5 +18,5 @@ gulp.task('styleFibGen', function() {
 });
 
 gulp.task('watchFibGen', function() {
-  gulp.watch('style', ['./fibGenerator/style.css']);
+  gulp.watch('./fibGenerator/style.css', ['styleFibGen']);
 });
