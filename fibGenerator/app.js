@@ -2,8 +2,8 @@ const number = document.querySelector('.number');
 const btn = document.querySelector('.btn');
 const output = document.querySelector('.display');
 
-const getFibonacci = (num) => {
-  if (typeof Number(num) !== 'number') { return alert('Please enter a number'); }
+getFibonacci = (num) => {
+  if (isNaN(num)) { return alert('Please enter a number'); }
   let memo = [0, 1];
 
   for (; num > 1; num--) {
@@ -21,3 +21,4 @@ const handleClick = (e) => {
 };
 
 btn.addEventListener('click', handleClick);
+
