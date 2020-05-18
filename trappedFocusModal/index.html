@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Parcel Sandbox</title>
+    <meta charset="UTF-8" />
+  </head>
+
+  <body>
+    <button id="openModal" class="openModal">
+      open modal
+    </button>
+    <input class="inputToFocus" placeholder="reset focus here" />
+    <dialog
+      role="dialog"
+      id="dialog"
+      aria-labelledby="dialog_label"
+      aria-describedby="dialog_description"
+      aria-modal="true"
+    >
+      <h2 id="dialog_label" class="dialog_label">
+        This is a modal
+      </h2>
+      <p id="dialog_description">This is the description</p>
+      <form class="dialog_form">
+        <div class="dialog_form_item">
+          <label>
+            <span class="label_text">
+              Name:
+            </span>
+            <input type="text" class="wide_input" />
+          </label>
+          <label>
+            <span class="label_text">
+              Date:
+            </span>
+            <input type="text" class="wide_input" />
+          </label>
+        </div>
+      </form>
+      <div class="dialog_form_actions">
+        <button class="closeModal">
+          Cancel
+        </button>
+      </div>
+    </dialog>
+    <script src="./index.js"></script>
+  </body>
+</html>
