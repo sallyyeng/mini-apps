@@ -23,16 +23,18 @@ function trapFocus(element) {
     if (!isTabPressed) return;
 
     if (e.shiftKey) {
-      // if active element is first element, focus the last element + preventDefault
       if (document.activeElement === firstFocusable) {
-        lastFocusable.focus();
+        // browser's default behavior is to move focus to
+        // outside modal (address bar) so you must e.preventDefault()
         e.preventDefault();
+
+        lastFocusable.focus();
       }
     } else {
-      // if active element is last element, focus first element + preventDefault
       if (document.activeElement === lastFocusable) {
-        firstFocusable.focus();
         e.preventDefault();
+
+        firstFocusable.focus();
       }
     }
   };
