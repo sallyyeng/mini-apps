@@ -1,0 +1,44 @@
+html {
+  background: rgb(226, 226, 226);
+  box-sizing: border-box;
+  font-family: "helvetica neue";
+  font-size: 15px;
+  font-weight: 200;
+}
+
+body {
+  font-family: sans-serif;
+}
+
+form.search {
+  max-width: 350px;
+}
+
+input.search {
+  font-size: 15px;
+  padding: 20px;
+  width: 100%;
+}
+
+.suggestions {
+  padding: 0px;
+  margin: 0px;
+}
+
+.suggestion {
+  border: 2px solid rgb(202, 202, 202);
+  list-style-type: none;
+  padding: 20px;
+  width: 100%;
+
+  display: flex;
+  justify-content: space-between;
+}
+
+.suggestion:not(:last-child) {
+  border-bottom: none;
+}
+
+.hl {
+  background: yellow;
+}

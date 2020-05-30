@@ -1,0 +1,62 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --square-size: 100px;
+}
+
+body {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0px;
+
+  width: 100vw;
+  height: 100vh;
+}
+
+.board {
+  font-size: 50px;
+
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+}
+
+.cell {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: var(--square-size);
+  height: var(--square-size);
+  border: 2px solid black;
+}
+
+.cell.clicked {
+  cursor: not-allowed;
+}
+
+.cell:first-child,
+.cell:nth-child(2),
+.cell:nth-child(3) {
+  border-top: none;
+}
+
+.cell:last-child,
+.cell:nth-child(7),
+.cell:nth-child(8) {
+  border-bottom: none;
+}
+
+.cell:nth-child(3n + 1) {
+  border-left: none;
+}
+
+.cell:nth-child(3n + 3) {
+  border-right: none;
+}
