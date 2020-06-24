@@ -64,17 +64,18 @@ function debounce(callback, delay) {
   };
 }
 
-// using function declaration/expression
-function throttledCB() {
-  console.log("this func: ", this);
-  debounce(displayCities, 300)(this.value);
-}
+// // using function declaration/expression
+// function throttledCB() {
+//   console.log("this func: ", this);
+//   debounce(displayCities, 300)(this.value);
+// }
 
-// // using fat arrow function
-// const throttledCB = e => {
-//   console.log("this fat arrow: ", this);
-//   debounce.apply(this, [displayCities, 300])(e.target.value);
-// };
+// using fat arrow function
+const throttledCB = e => {
+  console.log("this fat arrow: ", this);
+  const debouncedCB = debounce.apply(this, [displayCities, 300]);
+  debouncedCB(e.target.value);
+};
 
 // select elements
 const suggestions = document.querySelector(".suggestions");

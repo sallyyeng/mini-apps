@@ -1,0 +1,27 @@
+.App {
+  font-family: sans-serif;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+.menu {
+  cursor: pointer;
+}
+
+.menu * li:hover {
+  background-color: rgb(233, 233, 233);
+}
+
+.drinks {
+  border: 1px solid black;
+  display: flex;
+  height: auto;
+  flex-direction: column;
+  width: 250px;
+}
+
+.drinks_list {
+  list-style: none;
+  padding: 0px;
+}
